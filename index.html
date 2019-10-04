@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="app/favicon.ico" />
+  <meta name="theme-color" content="#000000" />
+
+  <title>Send WhatsApp Message</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.1/css/flag-icon.css" rel="stylesheet" crossorigin="anonymous">
+  <script type="text/javascript">
+  const setup = (function () {
+    // console.log('setup');
+    document.getElementById('send').onclick = function () {
+      console.log('click');
+      const number = document.getElementById('number').value;
+      const text = document.getElementById('text').value;
+      // console.log(number);
+      const link = `https://wa.me/55${number}?text=${text}`;
+      window.open(link);
+    };
+  })
+  if (window.attachEvent) {
+    window.attachEvent('onload', setup);
+  } else {
+    window.addEventListener('load', setup, false);
+  }
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron align-middle">
+    <h1 class="display-4">WhatsApp Message Sender</h1>
+    <p class="lead">Escreva o numero de WhatsApp com DDD para abrir o WhatsApp e mandar uma mensagem sem precisar adicionar aos seus contatos</p>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <span class="flag-icon flag-icon-br"></span>
+          </span>
+        </div>
+        <input type="number" id="number" class="form-control" placeholder="Numero com DDD" aria-label="Shop" aria-describedby="basic-addon1" autocomplete="off">
+        <input type="mensagem" id="text" class="form-control" placeholder="(Opcional) Mensagem" aria-label="Shop" aria-describedby="basic-addon1" autocomplete="off">
+      </div>
+      <button id="send" class="btn btn-primary btn-lg btn-block">Abrir WhatsApp</button>
+  </div>
+</div>
+</body>
+</html>
