@@ -15,10 +15,17 @@
     // console.log('setup');
     document.getElementById('send').onclick = function () {
       console.log('click');
-      const number = document.getElementById('number').value;
+      const country = '55';
+      const number = (document.getElementById('number').value || '')
+        .replace(/\D/g, '')
+        .replace(new RegExp(`^${country}`), '');
       const text = document.getElementById('text').value;
-      // console.log(number);
-      const link = `https://wa.me/55${number}?text=${text}`;
+      if (!number) {
+        alert('Invalid number');
+        return;
+      }
+      const link = `https://wa.me/${country}${number}?text=${text}`;
+      console.log(number, link);
       window.open(link);
     };
   })
@@ -40,7 +47,7 @@
             <span class="flag-icon flag-icon-br"></span>
           </span>
         </div>
-        <input type="number" id="number" class="form-control" placeholder="Numero com DDD (apenas números)" aria-label="Shop" aria-describedby="basic-addon1" autocomplete="off">
+        <input type="text" id="number" min="0" class="form-control" placeholder="Numero com DDD (apenas números)" aria-label="Shop" aria-describedby="basic-addon1" autocomplete="off">
         <input type="mensagem" id="text" class="form-control" placeholder="(Opcional) Mensagem" aria-label="Shop" aria-describedby="basic-addon1" autocomplete="off">
       </div>
       <button id="send" class="btn btn-primary btn-lg btn-block">Abrir WhatsApp</button>
