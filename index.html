@@ -10,10 +10,12 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.1/css/flag-icon.css" rel="stylesheet" crossorigin="anonymous">
+  <script type="text/javascript" src="mobiledetect.min.js" async></script>
   <script type="text/javascript">
   const setup = (function () {
     // console.log('setup');
-    document.getElementById('send').onclick = function () {
+    document.getElementById('sendMessage').onsubmit = function (e) {
+      e.preventDefault();
       console.log('click');
       const country = '55';
       const number = (document.getElementById('number').value || '')
@@ -24,7 +26,11 @@
         alert('Invalid number');
         return;
       }
-      const link = `https://wa.me/${country}${number}?text=${text}`;
+      // const link = `https://wa.me/${country}${number}?text=${text}`;
+      link = `https://web.whatsapp.com/send?phone=${country}${number}&text=${text}`;
+      if ((new MobileDetect(window.navigator.userAgent)).mobile()) {
+        link = `https://api.whatsapp.com/send?phone=${country}${number}&text=${text}`;
+      }
       console.log(number, link);
       window.open(link);
     };
@@ -41,6 +47,7 @@
   <div class="jumbotron align-middle">
     <h1 class="display-4">WhatsApp Message Sender</h1>
     <p class="lead">Escreva o numero de WhatsApp com DDD para abrir o WhatsApp e mandar uma mensagem sem precisar adicionar aos seus contatos</p>
+    <form method="POST" id="sendMessage">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">
@@ -51,6 +58,7 @@
         <input type="mensagem" id="text" class="form-control" placeholder="(Opcional) Mensagem" aria-label="Shop" aria-describedby="basic-addon1" autocomplete="off">
       </div>
       <button id="send" class="btn btn-primary btn-lg btn-block">Abrir WhatsApp</button>
+    </form>
   </div>
   <div class="navbar navbar-light bg-light">
     <a href="https://blog.ateliedocodigo.com.br/mandando-mensagens-no-whatsapp-sem-adicionar-aos-contatos-a82ff1e6700c" target="_blank">Mais informações no post</a>
